@@ -1,0 +1,15 @@
+{
+  "name": "tophat",
+  "description": "A minimal wrapper for the StatHat EZ API",
+  "version": "1.0.0",
+  "author": "David Wood <bitprobe@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/davidwood/tophat.git"
+  },
+  "keywords": ["stathat"],
+  "main": "./index.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  }
+}
