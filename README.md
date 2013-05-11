@@ -1,4 +1,4 @@
-# Top Hat [![Build Status](https://secure.travis-ci.org/davidwood/tophat.png)](http://travis-ci.org/davidwood/tophat)
+# Top Hat
 
 Top Hat is a minimal wrapper for the [StatHat](http://www.stathat.com) EZ API.
 
