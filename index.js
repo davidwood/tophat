@@ -92,7 +92,8 @@ TopHat.prototype._post = function(data, cb) {
         headers: {
           'Content-Type': 'application/json'
         },
-        path: '/ez'
+        path: '/ez',
+        agent: false
       },
       payload = {
         ezkey: this._key
