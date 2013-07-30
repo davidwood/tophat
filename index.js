@@ -1,8 +1,7 @@
 /**
  * Module imports
  */
-var http = require('http'),
-    https = require('https');
+var request = require('request').defaults({ pool: false });
 
 /**
  * Export the factory
@@ -85,36 +84,32 @@ TopHat.prototype.value = function(name, value, cb) {
  * @param   {Function}      cb    Optional callback function
  */
 TopHat.prototype._post = function(data, cb) {
-  var request = this._ssl ? https.request : http.request,
-      options = {
-        hostname: 'api.stathat.com',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        path: '/ez',
-        agent: false
+  var options = {
+        url: (this._ssl ? 'https://' : 'http://') + 'api.stathat.com/ez',
+        method: 'POST'
       },
       payload = {
         ezkey: this._key
-      },
-      req;
+      };
   if (Array.isArray(data)) {
     payload.data = data;
   } else {
     payload.data = [data];
   }
-  payload = JSON.stringify(payload);
-  options.headers['Content-Length'] = payload.length;
-  req = request(options, function(res) {
+  options.json = data;
+  request(options, function(err, resp) {
     if (typeof cb === 'function') {
-      if (res.statusCode === 200) {
-        cb(null);
+      if (resp) {
+        if (resp.statusCode === 200) {
+          cb(null);
+        } else {
+          cb(new Error('Failed to create stat: ' + res.statusCode));
+        }
+      } else if (err) {
+        cb(err);
       } else {
-        cb(new Error('Failed to create stat: ' + res.statusCode));
+        cb(new Error('Failed to create stat'));
       }
     }
   });
-  req.write(payload);
-  req.end();
 };
