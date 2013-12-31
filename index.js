@@ -103,7 +103,7 @@ TopHat.prototype._post = function(data, cb) {
         if (resp.statusCode === 200) {
           cb(null);
         } else {
-          cb(new Error('Failed to create stat: ' + res.statusCode));
+          cb(new Error('Failed to create stat: ' + resp.statusCode));
         }
       } else if (err) {
         cb(err);
